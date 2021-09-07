@@ -1,0 +1,9 @@
+<p style="font-size: 15px; line-height: 15px;">Hello HHRR Team,</p>
+<br>
+<p style="font-size: 15px; line-height: 15px;">The following employees have a score less than or equal to 3:</p>
+<br>
+{ScoreTable}
+<br>
+<p style="font-size: 15px; line-height: 15px;">With kindest regards,</p>
+<br>
+<p style="font-size: 15px; line-height: 15px;">Evaluation App</p>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+  <types>
+    <members>BeforeDailyNotificationScheduler</members>
+    <members>BeforeDailyNotificationSchedulerTest</members>
+    <members>DailyNotificationScheduler</members>
+    <members>DailyNotificationSchedulerTest</members>
+    <members>FinishEvaluationPeriodScheduler</members>
+    <members>FinishEvaluationPeriodSchedulerTest</members>
+    <members>FormController</members>
+    <members>FormControllerTest</members>
+    <members>FormScoreCreation</members>
+    <members>FormScoreCreationTest</members>
+    <members>InstructionController</members>
+    <members>InstructionControllerTest</members>
+    <members>MetadataDeploy</members>
+    <members>MetadataDeployTest</members>
+    <members>QuestionController</members>
+    <members>QuestionControllerTest</members>
+    <members>SchedulerService</members>
+    <members>SchedulerServiceController</members>
+    <members>SchedulerServiceControllerTest</members>
+    <members>SchedulerServiceTest</members>
+    <members>ScoreController</members>
+    <members>ScoreControllerTest</members>
+    <members>SendNotificationEmailService</members>
+    <members>SendNotificationEmailServiceTest</members>
+    <members>StartEvaluationPeriodScheduler</members>
+    <members>StartEvaluationPeriodSchedulerTest</members>
+    <name>ApexClass</name>
+  </types>
+
+
+  <types>
+    <members>Score__c.High_Score_Employees_Approval</members>
+    <name>ApprovalProcess</name>
+  </types>
+
+
+
+
+  <types>
+    <members>Evaluation_App</members>
+    <name>CustomApplication</name>
+  </types>
+
+  <types>
+     <members>EmployeeInstructions__c.EInstructions__c</members>
+    <members>Form__c.Active_Period__c</members>
+    <members>Form__c.Answer__c</members>
+    <members>Form__c.Category__c</members>
+    <members>Form__c.Date_Time_Completed__c</members>
+    <members>Form__c.Employee__c</members>
+    <members>Form__c.For__c</members>
+    <members>Form__c.For_Manager__c</members>
+    <members>Form__c.Manager__c</members>
+    <members>Form__c.Points__c</members>
+    <members>Form__c.Question_Score__c</members>
+    <members>Form__c.Question_Text__c</members>
+    <members>Form__c.Score__c</members>
+    <members>Form__c.Start_Date__c</members>
+    <members>Form__c.Total_Points__c</members>
+    <members>Forms_Group__c.Active_Period__c</members>
+    <members>Forms_Group__c.Form_Score__c</members>
+    <members>Forms_Group__c.Group__c</members>
+    <members>Forms_Group__c.Score__c</members>
+    <members>Forms_Group__c.Total_Form_Points__c</members>
+    <members>Instruction__mdt.Instruction__c</members>
+    <members>Question__c.Available_in_Pool__c</members>
+    <members>Question__c.Category__c</members>
+    <members>Question__c.For__c</members>
+    <members>Question__c.For_Manager__c</members>
+    <members>Question__c.Points__c</members>
+    <members>Question__c.Question_Text__c</members>
+    <members>Score__c.Completed_By_Employee__c</members>
+    <members>Score__c.Completed_By_Manager__c</members>
+    <members>Score__c.Employee__c</members>
+    <members>Score__c.Group__c</members>
+    <members>Score__c.Last_Completed_Eval__c</members>
+    <members>Score__c.Last_Eval_Period__c</members>
+    <members>Score__c.Manager__c</members>
+    <members>Score__c.Min_Question_Score__c</members>
+    <members>Score__c.Recommendations__c</members>
+    <members>Score__c.Score__c</members>
+    <members>Score__c.Start_Date__c</members>
+    <name>CustomField</name>
+  </types>
+
+  <types>
+    <members>Employee_Form_Instructions</members>
+    <name>CustomLabel</name>
+  </types>
+
+
+
+  <types>
+    <members>Instruction.EmployeeInstructions</members>
+    <members>Instruction.ManagerInstructions</members>
+    <name>CustomMetadata</name>
+  </types>
+
+  <types>
+    <members>Form__c</members>
+    <members>Forms_Group__c</members>
+    <members>Question__c</members>
+    <members>Score__c</members>
+    <members>User</members>
+    <name>CustomObject</name>
+  </types>
+
+  <types>
+    <members>EmployeeInstructions__c-en_US</members>
+    <members>Form__c-en_US</members>
+    <members>Forms_Group__c-en_US</members>
+    <members>Instruction__mdt-en_US</members>
+    <members>Question__c-en_US</members>
+    <members>Score__c-en_US</members>
+    <name>CustomObjectTranslation</name>
+  </types>
+
+  <types>
+    <members>Automation_Manager</members>
+    <members>Dashboards</members>
+    <members>Evaluation_Forms</members>
+    <members>Form__c</members>
+    <members>Form_Configuration</members>
+    <members>Forms_Group__c</members>
+    <members>Question__c</members>
+    <members>Question_Pool</members>
+    <members>Score__c</members>
+    <name>CustomTab</name>
+  </types>
+
+  <types>
+    <members>EvaluationApp</members>
+    <members>EvaluationApp/lpKvRuGdkQQJgGPOPwxkaYVmMNJEJP</members>
+    <members>EvaluationApp/rYIBebuewEnBAmeDhdiovmUdSlaizI</members>
+    <name>Dashboard</name>
+  </types>
+ 
+
+  <types>
+    <members>unfiled$public</members>
+    <members>unfiled$public/Evaluation_App_Before_EE_Starts_Reminder</members>
+    <members>unfiled$public/Evaluation_App_Daily_Reminder</members>
+    <members>unfiled$public/Evaluation_App_Finish_Evaluation_Period</members>
+    <members>unfiled$public/Evaluation_App_Low_Score_Email_Notification</members>
+    <members>unfiled$public/Evaluation_App_Low_Score_Email_Notification_HTML</members>
+    <members>unfiled$public/Evaluation_App_Start_Evaluation_Period</members>
+    <name>EmailTemplate</name>
+  </types>
+
+
+  <types>
+    <members>Automation_Manager</members>
+    <members>Dashboards</members>
+    <members>Eval_Dev_UtilityBar</members>
+    <members>Evaluation_App_UtilityBar</members>
+    <members>Evaluation_Forms1</members>
+    <members>Form_Configuration</members>
+    <members>LightningSalesConsole_UtilityBar</members>
+    <members>LightningService_UtilityBar</members>
+    <members>Question_Pool</members>
+    <name>FlexiPage</name>
+  </types>
+
+
+  <types>
+    <members>All_Employees</members>
+    <members>Empty_Public_Group</members>
+    <members>HHRR</members>
+    <members>Jr_Salesforce_Dev</members>
+    <members>Mexico_Group</members>
+    <members>Sr_Salesforce_Dev</members>
+    <name>Group</name>
+  </types>
+ 
+  <types>
+    <members>configForms</members>
+    <members>createQuestion</members>
+    <members>evaluationForm</members>
+    <members>formSelector</members>
+    <members>jobsMonitor</members>
+    <members>mutliSelectPicklist</members>
+    <members>pagination</members>
+    <members>picklistValue</members>
+    <members>questionPool</members>
+    <members>schedulerMonitor</members>
+    <name>LightningComponentBundle</name>
+  </types>
+
+
+  <types>
+    <members>Evaluation_App</members>
+    <name>PermissionSet</name>
+  </types>
+
+  <types>
+    <members>STD User</members>
+    <members>SU2</members>
+    <name>Profile</name>
+  </types>
+
+
+  <types>
+    <members>EmployeeEvaluationApp</members>
+    <members>EmployeeEvaluationApp/My_Previous_Scores_pft</members>
+    <members>HHRR</members>
+    <members>HHRR/Latest_Scores_by_Employee_cHf</members>
+    <members>HHRR/Scores_by_Employee_Fyv</members>
+    <name>Report</name>
+  </types>
+
+  <types>
+    <members>Score_by_Employee</members>
+    <name>ReportType</name>
+  </types>
+
+  <types>
+    <members>HHRR</members>
+    <name>Role</name>
+  </types>
+ 
+
+  <types>
+    <members>Question__c.Category_Must_be_picked</members>
+    <members>Question__c.PointsRange</members>
+    <members>Question__c.Question_Must_have_Text</members>
+    <name>ValidationRule</name>
+  </types>
+
+  <types>
+    <members>Case</members>
+    <members>Score__c</members>
+    <members>User</members>
+    <name>Workflow</name>
+  </types>
+  <types>
+    <members>Score__c.Low_Score_Email_Notification</members>
+    <members>User.Warning_grade_less_than_3</members>
+    <name>WorkflowAlert</name>
+  </types>
+  <version>52.0</version>
+</Package>

@@ -1,0 +1,72 @@
+<template>
+    <div class="slds-grid slds-wrap">
+      <div class="slds-size_1-of-1">
+        <lightning-card title="Scheduler Monitor" icon-name="standard:apex">
+            <template if:true={loading}>
+              <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+          </template>
+          <template if:true={userRole}>
+  
+            <template if:true={visible}>
+              <lightning-button-icon icon-name="utility:refresh" slot="actions" name="refresh" onclick={getScheduledCron}></lightning-button-icon>
+  
+              <div class="slds-grid slds-wrap slds-var-p-right_medium slds-var-p-left_medium slds-var-p-bottom_medium">
+  
+              <template if:true={inputTimeOpen}>
+                <div class="slds-size_1-of-1 slds-var-p-bottom_x-small slds-var-p-top_x-small slds-border_bottom">
+                  <h2 class="slds-text-heading_small slds-var-p-bottom_x-small">The jobs that activates the evaluation period automatically, are not scheduled</h2>
+                  <lightning-input class="slds-var-p-bottom_x-small" timezone={timeZone} type="datetime" name="time" label="Choose the time you want the Evaluation Period to begin" required
+                    onchange={handleTimeChange}></lightning-input>
+                  <lightning-button label="Schedule Evaluation Period" name="Schedule Evaluation Period" onclick={scheduleApexJob}></lightning-button>
+                </div>
+                </template>
+                <div class="slds-size_1-of-1 slds-var-p-bottom_x-small slds-var-p-top_small">
+                  <template if:true={currentCronAsTime}>
+                    <h2 class="slds-text-heading_small slds-var-p-bottom_x-small">The evaluation period runs each 6 months</h2>
+                  </p>
+                  <p class="slds-var-p-bottom_x-small">The next evaluation period will be from 
+                    <strong><lightning-formatted-date-time class="slds-var-p-left_xx-small "
+                    value={nextFireTime} year="numeric" month="numeric" day="numeric" hour="2-digit"
+                    minute="2-digit" time-zone={timeZone} time-zone-name="short" hour12="false">
+                  </lightning-formatted-date-time></strong> to 
+                  <strong><lightning-formatted-date-time class="slds-var-p-left_xx-small"
+                  value={nextStopTime} year="numeric" month="numeric" day="numeric" hour="2-digit"
+                  minute="2-digit" time-zone={timeZone} time-zone-name="short" hour12="false">
+                </lightning-formatted-date-time></strong> </p>
+  
+                  </template>
+  
+                  <template if:true={currentCronAsTimeEnd}>
+                    <h2 class="slds-text-heading_small slds-var-p-bottom_x-small">The evaluation period is currently open</h2>
+                  </p>
+                  <p class="slds-var-p-bottom_x-small">The evaluation period will end on  
+                  <strong><lightning-formatted-date-time class="slds-var-p-left_xx-small"
+                  value={nextStopTime} year="numeric" month="numeric" day="numeric" hour="2-digit"
+                  minute="2-digit" time-zone={timeZone} time-zone-name="short" hour12="false">
+                </lightning-formatted-date-time></strong> </p>
+  
+                  </template>
+                
+                  <template if:true={currentCronAsTime}>
+                  </template>
+  
+                  <lightning-button label="Stop Jobs" name="Stop Jobs" onclick={deleteJob}></lightning-button>
+                </div>
+              </div>
+  
+              </template>     
+            <template if:false={visible}>
+              <div class="slds-var-m-around_medium slds-text-align_center">
+                  <lightning-icon icon-name="action:reject" class="slds-var-m-around_medium" size="small"></lightning-icon>
+                  <p><lightning-formatted-text  class="slds-var-m-around_m slds-text-heading_small" value="You don't have enough permissions to access this page"></lightning-formatted-text></p>
+              </div>
+            </template> 
+          </template>  
+          <template if:false={userRole}>
+            <div class="slds-var-m-around_medium slds-text-align_center">
+              </div>
+        </template>
+        </lightning-card>
+      </div>
+    </div>
+  </template>

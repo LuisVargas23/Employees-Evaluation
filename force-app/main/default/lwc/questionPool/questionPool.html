@@ -1,0 +1,232 @@
+<template>
+    <lightning-card  title="Question Pool" icon-name="standard:question_feed">
+       
+      
+        <template if:true={loading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+        <template if:true={userRole}>
+            <template if:true={visible}>
+                <div class="slds-var-m-around_medium slds-text-align_center">
+                    <p><lightning-formatted-text  class="slds-var-m-around_m slds-text-heading_medium" value="Add/Edit Questions"></lightning-formatted-text></p>
+                </div>
+                <lightning-button-icon icon-name="utility:add" slot="actions" onclick={showCreateQuestionModal} ></lightning-button-icon>
+                <lightning-button 
+                    label={toggleSave}
+                    icon-name="utility:save" 
+                    slot="actions"
+                    onclick={updateQuestions}>
+                </lightning-button>
+                <template if:true={questions}>
+                    <div class="slds-p-around_x-small slds-grid slds-wrap slds-size_12-of-12">
+                        <table class="slds-table ">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th class="slds-size_1-of-12" scope="col">
+                                        <div class="slds-truncate slds-align_absolute-center"  title="Question">Question #</div>
+                                    </th>
+                                    <th class="slds-size_4-of-12" scope="col">
+                                        <div class="slds-truncate" title="Question">Question</div>
+                                    </th>
+                                    <th  class="slds-size_1-of-12"  scope="col">
+                                        <div class="slds-truncate slds-align_absolute-center" title="Activate">Status</div>
+                                    </th>
+                                    <th  class="slds-size_1-of-12" scope="col">
+                                        <div class="slds-truncate" title="Category">Category</div>
+                                    </th>
+                                    <th class="slds-size_1-of-12 " scope="col">
+                                        <div class="slds-truncate slds-align_absolute-center" title="Delete">Delete</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={visibleQuestions} for:item="question">
+                                        <tr  key={question.Id} class="slds-hint-parent" >
+                                        <th class="slds-size_1-of-12" scope="col">
+                                            <div class="slds-truncate slds-align_absolute-center" >
+                                                <lightning-formatted-text 
+                                                    value={question.Name}
+                                                    variant = "label-hidden"
+                                                    data-field="Name" 
+                                                    read-only   
+                                                    >
+                                                </lightning-formatted-text>
+                                            </div>
+                                        </th>
+                                        <th class="slds-size_4-of-12" scope="col">
+                                        <div class="slds-truncate" >
+                                            <lightning-textarea
+                                                type="text"
+                                                value={question.Question_Text__c}
+                                                variant = "label-hidden"         
+                                                data-field="Question_Text__c" 
+                                                onchange={handleEditChange} 
+                                                >
+                                            </lightning-textarea>
+                                           
+                                        </div>
+                                    </th>                    
+                                        <th class="slds-size_1-of-12 " scope="col">
+                                            <div class="slds-truncate slds-align_absolute-center" >
+                                            <lightning-input
+                                                type="toggle" 
+                                                name="Available" 
+                                                data-field="Available_in_Pool__c" 
+                                                checked={question.Available_in_Pool__c}
+                                                variant = "label-hidden"    
+                                                onchange={handleEditChange} 
+                                                >
+                                            </lightning-input>   
+                                            </div>
+                                        </th>
+                                        <th class="slds-size_1-of-12" scope="col">
+                                            <div class="">
+                                            <lightning-combobox
+                                                name={question.Category__c} 
+                                                variant ="label-hidden"
+                                                value={question.Category__c}
+                                                options={options}
+                                                data-field="Category__c"
+                                                onchange={handleEditChange} 
+                                                >
+                                            </lightning-combobox>
+                                        </div>
+                                    </th>
+                                        <th class="slds-size_1-of-12" scope="col">
+                                            <div class="slds-truncate slds-align_absolute-center" >
+                                            <lightning-button-icon
+                                            variant = "label-hidden"
+                                                icon-name="utility:delete"
+                                                onclick={showDeleteQuestionModal}
+                                                data-recordid={question.Id}
+                                        
+                                            ></lightning-button-icon>
+                                        </div>
+                                    </th>
+                                    </tr>                            
+                                </template>
+                            </tbody>
+                        </table>
+                    <!-- Pagination-->
+                    <div slot="footer" class="slds-align_absolute-center">         
+                        <template if:true={boolgotochild}>                   
+                            <c-pagination savedpage={currentPage} records={questions} onupdate={updateQuestionHandler}></c-pagination>
+                        </template>
+                    </div>
+                    <!-- End Pagination -->
+                </div>
+            </template>
+        
+            <template if:true={error}></template>
+
+        </template>
+            <template if:false={visible}>
+                <div class="slds-var-m-around_medium slds-text-align_center">
+                    <lightning-icon icon-name="action:reject" class="slds-var-m-around_medium" size="small"></lightning-icon>
+                    <p><lightning-formatted-text  class="slds-var-m-around_m slds-text-heading_small" value="You don't have enough permissions to access this page"></lightning-formatted-text></p>
+                </div>
+            </template>
+        </template>    
+
+        <!-- Warning Modal When Delete a Question-->
+        <template if:true={showDeleteWarning}>
+            <div class="slds-box slds-theme_shade">
+                <div class="slds-modal slds-fade-in-open slds-backdrop">
+                    <div class="slds-modal__container">
+                        <!--HEADER Section-->
+                        <div class="slds-modal__header">
+                            <lightning-button-icon
+                                icon-name="utility:close"
+                                alternative-text="Close this window"
+                                size="large"
+                                variant="bare-inverse"
+                                onclick={hideDeleteQuestionModal}
+                                class="slds-modal__close"
+                                >
+                            </lightning-button-icon>
+                            <lightning-icon icon-name="action:delete" alternative-text="Erase"></lightning-icon>
+                        </div>
+                        <!---Body Section-->
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <div class="slds-var-m-around_medium slds-text-align_center"> 
+                                <p><lightning-formatted-text  class="slds-text-heading_small " value="Are you sure you want to permanently erase this question?" ></lightning-formatted-text></p>
+                                <p><lightning-formatted-text  value="You can’t undo this action."></lightning-formatted-text></p>
+                            </div>
+                        </div>
+                        <!--End Section-->
+                        <!--Footer Section-->
+                        <div class="slds-modal__footer ">
+                            <lightning-button
+                            variant="brand-outline"  
+                            onclick={hideDeleteQuestionModal}
+                            title="Cancel"
+                            label="Cancel"
+                            class="slds-m-left_x-small" 
+                            >
+                            </lightning-button>
+                            <lightning-button
+                            variant="brand"  
+                            onclick={deleteQuestion}
+                            title="Erase"
+                            label="Erase"
+                            class="slds-m-left_x-small"
+                            >
+                            </lightning-button>
+                            <!--End Footer Section-->
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </template>
+        <!--End Warning Modal When Delete a Question-->
+
+        <!-- Unsaved changes Warning Modal when page changes-->
+        <template if:true={showSaveWarning}>
+            <div class="slds-box slds-theme_shade">
+                <div class="slds-modal slds-fade-in-open slds-backdrop">
+                    <div class="slds-modal__container">
+                    <!--HEADER Section-->
+                        <div class="slds-modal__header">
+                            <p><lightning-formatted-text  class="slds-text-heading_medium " value="Editing question(s) in Question Pool" ></lightning-formatted-text></p>
+                        </div>
+                        <!---Body Section-->
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <div class="slds-var-m-around_medium slds-text-align_center">
+                                <p><lightning-formatted-text  class="slds-text-heading_small " value="You have unsaved changes." ></lightning-formatted-text></p>
+                                <p><lightning-formatted-text  value="Are you sure you want to discard these changes?"></lightning-formatted-text></p>
+                        </div>
+                    </div>
+                    <!--End Section-->
+
+                        <!--Footer Section-->
+                        <div class="slds-modal__footer ">
+                            <lightning-button
+                            variant="brand-outline"  
+                            onclick={updateQuestions}
+                            title="Save Changes"
+                            label="Save Changes"
+                            class="slds-m-left_x-small"
+                            >
+                            </lightning-button>
+                            <lightning-button
+                            variant="brand"  
+                            onclick={handleDiscardChanges}
+                            title="Discard Changes"
+                            label="Discard Changes"
+                            class="slds-m-left_x-small" 
+                            >
+                            </lightning-button>
+                            <!--End Footer Section-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </template>
+        <!--End Unsaved changes Warning Modal when page changes-->
+        
+         <!-- Create Question Modal -->
+        <c-create-question showmodal= {showCreateQuestion} picklist-values={categoryPicklist} oncreate={hideCreateQuestionModal} onclose = {hideCreateQuestionModalWithoutLoad}>></c-create-question>
+        <!-- End Create Question Modal -->
+    </lightning-card>
+</template>

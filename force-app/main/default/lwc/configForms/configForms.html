@@ -1,0 +1,220 @@
+<template>
+    <lightning-card title="Form Configuration" icon-name="standard:bundle_config">
+        <template if:true={loading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+<template if:true={userRole}>
+    <template if:true={visible}>
+        
+        
+        <lightning-button 
+            label={toggleSave}
+            icon-name="utility:save" 
+            slot="actions"
+            onclick={updateQuestions}>
+        </lightning-button>
+        <template if:true={questions}>
+            
+            <div class="slds-p-around_x-small slds-grid slds-wrap">
+                <div class="slds-col slds-size_3-of-3 slds-var-m-around_medium slds-text-align_center">
+                    <!--  <p><lightning-formatted-text  class="slds-text-heading_large " value="Form Configuration" ></lightning-formatted-text></p>-->
+                      <lightning-formatted-text  class="slds-text-heading_medium " value="Customize the Form Instructions" ></lightning-formatted-text>
+                  </div>
+            <div class="slds-col slds-size_3-of-3 slds-var-m-around_medium ">
+                <template if:true={ei}>
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+
+                        <lightning-formatted-text  class="slds-text-heading_small" value="Instructions for self answered questions:" ></lightning-formatted-text>
+                    </div>
+                    <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                        <lightning-textarea
+                            class="slds-align_absolute-center slds-text-heading_x-small"
+                            value={ei.Instruction__c}
+                            variant = "label-hidden"
+                            data-field="EmployeeInstructions"
+                            placeholder="Insert instructions for self answered questions"
+                            >
+                        </lightning-textarea>
+                    </div>
+                </template>
+            </div>
+            <div class="slds-col slds-size_3-of-3 slds-var-m-around_medium ">
+                <template if:true={mi}>
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_x-small">
+                        <lightning-formatted-text  class="slds-text-heading_small" value="Instructions for questions answered by the manager:" ></lightning-formatted-text>
+                    </div>
+                    <div class="slds-col slds-size_2-of-3 slds-p-around_x-small">
+                        <lightning-textarea
+                            class="slds-align_absolute-center slds-text-heading_x-small"
+                            value={mi.Instruction__c}
+                            variant = "label-hidden"
+                            data-field="ManagerInstructions"
+                            placeholder="Insert instructions for questions answered by the manager"
+
+                            >
+                        </lightning-textarea>
+                    </div>
+                </template>
+            </div>
+            </div>
+            <div>
+                <template if:true={picklist2}>
+                    <template if:true={picklist}>
+                        <div class="slds-var-m-around_medium slds-text-align_center">
+                            <!--  <p><lightning-formatted-text  class="slds-text-heading_large " value="Form Configuration" ></lightning-formatted-text></p>-->
+                              <p><lightning-formatted-text  class="slds-text-heading_medium " value="Select questions available for each form" ></lightning-formatted-text></p>
+                          </div>
+                        <template for:each={picklist2} for:item="cat">
+                            <template if:true={questionsbycat}>
+                                
+                                <div  key={cat} class="slds-align_absolute-center" style="height: 80px;">
+                                    <p ><strong><lightning-formatted-text  class="slds-text-heading_small " value={cat} ></lightning-formatted-text></strong></p>
+                                </div>
+                                <div class="slds-p-around_x-small slds-grid slds-wrap slds-size_12-of-12" key={cat}>
+                                    <table class="slds-table ">
+                                        <thead>
+                                            <tr class="slds-line-height_reset">
+                                                <th class="slds-size_6-of-12" scope="col">
+                                                    <div class="slds-truncate" title="Question">Question</div>
+                                                </th>
+                                                <th class="slds-size_1-of-12" scope="col">
+                                                    <div class="slds-truncate slds-align_absolute-center" title="Score">Score</div>
+                                                </th>
+                                                <th  class="slds-size_1-of-12"  scope="col">
+                                                    <div class="slds-truncate slds-align_absolute-center" title="For Manager">For Manager</div>
+                                                </th>
+                                                <th  class="slds-size_4-of-12" scope="col">
+                                                    <div class="slds-truncate" title="Availiable In">Availiable In</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={questionsbycat} for:item="question">
+                                                <tr  key={question.Id} class="slds-hint-parent">
+                                                    <th class="slds-size_6-of-12" scope="col">
+                                                        <div class="slds-truncate" >
+                                                            <lightning-textarea
+                                                                type="text"
+                                                                value={question.Question_Text__c}
+                                                                data-field="Question_Text__c"
+                                                                variant = "label-hidden"         
+                                                                readonly
+                                                                disabled
+                                                                >
+                                                            </lightning-textarea>
+                                                        </div>
+                                                        
+                                                    </th>
+                                                    <th class="slds-size_1-of-12" scope="col">
+                                                        <div class="slds-truncate slds-align_absolute-center" >
+                                                            <lightning-input
+                                                                type="number"
+                                                                value={question.Points__c}
+                                                                variant = "label-hidden"
+                                                                data-field="Points__c"
+                                                                placeholder="Type a weight from 1 to 10"
+                                                                min="1"
+                                                                max="10"
+                                                                onchange={handleEditChange}
+                                                                >
+                                                            </lightning-input>
+                                                        </div>
+                                                    </th>
+                                                    <th class="slds-size_1-of-12" scope="col">
+                                                        <div class="slds-truncate slds-align_absolute-center" >
+                                                            <lightning-input
+                                                                type="toggle" 
+                                                                name="For Manager" 
+                                                                data-field="For_Manager__c" 
+                                                                checked={question.For_Manager__c}
+                                                                onchange={handleEditChange}
+                                                                >
+                                                            </lightning-input>   
+                                                        </div>
+                                                    </th>
+                                                    <th class="slds-size_4-of-12" scope="col">
+                                                        <div  >
+
+                                                        <c-mutli-select-picklist 
+                                                            values={options}
+                                                            data-field="For__c"
+                                                            >
+                                                        </c-mutli-select-picklist>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </template>
+                        </template>
+                         <!-- Pagination-->
+                        <div slot="footer" class="slds-align_absolute-center">         
+                            <c-pagination records={questions} onupdate={updateQuestionHandler}></c-pagination>
+                        </div>
+                        <!-- End Pagination -->
+                    </template>
+                </template>
+               
+            </div>
+        </template>
+        
+        <!-- Warning Modal When page change-->
+        <template if:true={showSaveWarning}>
+            <div class="slds-box slds-theme_shade">
+                <div class="slds-modal slds-fade-in-open slds-backdrop">
+                    <div class="slds-modal__container">
+                        <!--HEADER Section-->
+                        <div class="slds-modal__header">
+                            <p><lightning-formatted-text  class="slds-text-heading_medium " value="Editing question(s) in Question Pool" ></lightning-formatted-text></p>
+                        </div>
+                        <!---Body Section-->
+                        <div class="slds-modal__content slds-var-p-around_medium">
+                            <div class="slds-var-p-around_medium slds-text-align_center">
+                                <p><lightning-formatted-text  class="slds-text-heading_small " value="You have unsaved changes." ></lightning-formatted-text></p>
+                                <p><lightning-formatted-text  value="Are you sure you want to discard these changes?"></lightning-formatted-text></p>
+                            </div>
+                        </div>
+                            <!--End Section-->
+                        <!--Footer Section-->
+                        <div class="slds-modal__footer ">
+                            <lightning-button
+                                variant="brand-outline"  
+                                onclick={updateQuestions}
+                                title="Save Changes"
+                                label="Save Changes"
+                                class="slds-var-m-left_x-small"
+                                >
+                            </lightning-button>
+                            <lightning-button
+                                variant="brand"  
+                                onclick={hideSaveQuestionsModal}
+                                title="Discard Changes"
+                                label="Discard Changes"
+                                class="slds-var-m-left_x-small" 
+                                >
+                            </lightning-button>
+                            <!--End Footer Section-->
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </template>
+        <!--End Warning Modal When page change-->
+        
+    </template>
+    <template if:false={visible}>
+        <div class="slds-var-m-around_medium slds-text-align_center">
+            <lightning-icon icon-name="action:reject" class="slds-var-m-around_medium" size="small"></lightning-icon>
+            <p><lightning-formatted-text  class="slds-var-m-around_m slds-text-heading_small" value="You don't have enough permissions to access this page"></lightning-formatted-text></p>
+        </div>
+    </template>
+</template>
+
+    <template if:false={userRole}>
+        <div class="slds-var-m-around_medium slds-text-align_center">
+           </div>
+    </template>
+    </lightning-card>
+</template>

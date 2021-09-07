@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PointsRange</fullName>
+    <active>false</active>
+    <errorConditionFormula>OR(Points__c &lt; 1,Points__c &gt; 10)</errorConditionFormula>
+    <errorDisplayField>Points__c</errorDisplayField>
+    <errorMessage>Value must be between 1 and 10</errorMessage>
+</ValidationRule>

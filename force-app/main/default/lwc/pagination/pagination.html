@@ -1,0 +1,41 @@
+<template>
+    <div class="slds-grid slds-grid_vertical">
+        <div class="slds-col">
+            <template if:true={visibleRecords}>
+                <lightning-button-group >
+                <lightning-button-icon 
+                variant="brand" 
+                alternative-text="Go to First Page"
+                icon-name="utility:jump_to_left"
+                onclick={firstPageHandler}
+                disabled={disablePrevious}
+                ></lightning-button-icon>
+                <lightning-button-icon 
+                variant="brand-outline" 
+                alternative-text="Previous"
+                icon-name="utility:chevronleft"
+                onclick={previousHandler}
+                disabled={disablePrevious}
+                ></lightning-button-icon>
+                <div class="slds-badge slds-m-around_xx-small slds-badge_lightest slds-text-align_center">
+                    <p> Page {currentPage} of {totalPage} </p>
+               </div>
+                <lightning-button-icon 
+                variant="brand-outline" 
+                alternative-text="Next"
+                icon-name="utility:chevronright"
+                onclick={nextHandler}
+                disabled={disableNext}
+                ></lightning-button-icon>
+                <lightning-button-icon 
+                variant="brand" 
+                alternative-text="Go to Last Page"
+                icon-name="utility:jump_to_right"
+                onclick={lastPageHandler}
+                disabled={disableNext}
+                ></lightning-button-icon>
+               </lightning-button-group> 
+            </template>
+        </div>
+    </div>
+</template>

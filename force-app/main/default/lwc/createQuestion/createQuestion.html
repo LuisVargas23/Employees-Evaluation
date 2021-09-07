@@ -1,0 +1,77 @@
+<template>
+    <lightning-card>
+        <template if:true={showmodal}>
+            <div class="slds-box slds-theme_shade">
+              <div class="slds-modal slds-fade-in-open slds-backdrop">
+                <div class="slds-modal__container">
+                  <!--HEADER Section-->
+                  <div class="slds-modal__header">
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        alternative-text="Close this window"
+                        size="large"
+                        variant="bare-inverse"
+                        onclick={closeModal}
+                        class="slds-modal__close"
+                        >
+                    </lightning-button-icon>
+                    <lightning-icon
+                      alternative-text="Create Question"
+                      icon-name="action:new_task"
+                      class="slds-var-m-around_small" size="small"
+                    ></lightning-icon>
+                    <div class="slds-text-heading_medium">Create Question</div>
+                    <div class="slds-text-heading_small">Add a question to the question pool</div>
+                  </div>
+                  <!---Body Section-->
+                  <div class="slds-modal__content slds-p-around_medium">
+                    <div class="slds-p-around_x-small slds-grid slds-gutters ">
+                      <div class="slds-col slds-size_2-of-3">
+                          <lightning-textarea
+                              label="Question"
+                              onchange={handleQuestionChange}
+                              required
+                              maxlength="140" 
+                              message-when-too-long="A maximum of 140 characters are allowed in a question." 
+                              message-when-value-missing="An empty question cannot be inserted."
+                              >
+                          </lightning-textarea>
+                        </div>
+                      <div  class="slds-col slds-size_1-of-3"  >
+                        <lightning-combobox 
+                              label="Category" 
+                              name=" progress" 
+                              value={value} 
+                              placeholder="Select Category" 
+                              options={options}
+                              required
+                              onchange={handleCategoryChange}>
+                        </lightning-combobox>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Footer Section-->
+                  <div class="slds-modal__footer">
+                    <lightning-button
+                      variant="brand-outline"  
+                      onclick={closeModal}
+                      title="Cancel"
+                      label="Cancel"
+                      class="slds-m-left_x-small" 
+                    >
+                    </lightning-button>
+                    <lightning-button
+                      variant="brand"  
+                      onclick={createQuestion}
+                      title="Create"
+                      label="Create"
+                      class="slds-m-left_x-small"
+                    >
+                    </lightning-button>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </template>
+    </lightning-card>
+</template>

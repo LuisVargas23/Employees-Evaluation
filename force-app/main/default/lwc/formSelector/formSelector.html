@@ -1,0 +1,151 @@
+<template>
+    <lightning-card title="Evaluation Form" icon-name="standard:form">
+        <template if:true={loading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+        <template if:true={evaluationPeriod} >
+            <div class="slds-var-m-around_medium slds-text-align_left">
+                <p><lightning-formatted-text  class="slds-var-m-around_m slds-text-heading_small" value=""></lightning-formatted-text></p>
+                <br>
+                <div class="slds-grid slds-grid_vertical ">
+                    <template if:true={userName}>
+                        <p class="slds-col slds-var-m-around_xx-small">Hello, <strong> {userName} </strong></p>
+                    </template>
+                    <template if:true={userRole}>
+                        <p class="slds-col slds-var-m-around_xx-small"><strong>Role: </strong> {userRole}</p>
+                    </template>
+                    <template if:true={showManagerForm}>
+                        <div class="slds-size_3-of-12 slds-col slds-var-m-around_xx-small ">
+                            <lightning-combobox
+                                name='Evaluation' 
+                                label='Choose Evaluation'
+                                value={optionValue}
+                                options={managerOptions}
+                                placeholder="Select an Evaluation"
+                                onchange={handleEvaluationChange} 
+                                read-only={disableCombo}
+                                >
+                            </lightning-combobox>
+                        </div>
+                    </template>
+                    <template if:true={showManagerSubordinates}>
+                        <div class="slds-size_3-of-12 slds-col slds-var-m-around_xx-small">
+                            <lightning-combobox
+                                name='Subordinates'                       
+                                label='Employees'
+                                options={subordinatesOptions}
+                                placeholder="Select an employee"
+                                data-name="subordinatesField"
+                                onchange={loadForms}
+                                read-only={disableCombo}
+
+                                >
+                            </lightning-combobox>
+                        </div>
+                    </template>
+                    <template if:true={showSubordinatesForms}>
+                        <div class="slds-size_3-of-12 slds-col slds-var-m-around_xx-small">
+                            <lightning-combobox
+                                name='Forms'    
+                                value={subordinateForm}          
+                                label='Evaluation Forms'
+                                options={subordinatesFormOptions}
+                                placeholder="Select a Form"
+                                onchange={handleFormChange} 
+                                data-field="subordinatesForms"
+
+                                >
+                            </lightning-combobox>
+                        </div>
+                    </template>
+                    <template if:true={employeeEvaluationPeriod}>
+                        <div class="slds-size_3-of-12 slds-col slds-var-m-around_xx-small">
+                            <lightning-combobox
+                                name='Forms'              
+                                label='Evaluation Forms'
+                                value={value}
+                                options={options}
+                                placeholder="Select a Form"
+                                data-field="evaluationForms"
+                                onchange={handleFormChange} 
+                                >
+                            </lightning-combobox>
+                        </div>
+                    </template>
+                    <template if:true={formVisibility}>
+                        <c-evaluation-form onformchange={handleEvaluationTaken} manager={isManager} show-recommendation={showRecommentation} formselection={formNew} username={userUserName} employeename={userName} subordinatename={mySubordinate}></c-evaluation-form>
+                    </template >
+                </div>
+            </div>
+        </template>
+    
+        <!-- Warning Modal When form change-->
+        <template if:true={showSaveWarning}>
+            <div class="slds-box slds-theme_shade">
+                <div class="slds-modal slds-fade-in-open slds-backdrop">
+                    <div class="slds-modal__container">
+                        <!--HEADER Section-->
+                        <div class="slds-modal__header">
+                            <p><lightning-formatted-text  class="slds-text-heading_medium " value="Form change attempted!" ></lightning-formatted-text></p>
+                        </div>
+                        <!---Body Section-->
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <div class="slds-var-m-around_medium slds-text-align_center">                 
+                                <p><lightning-formatted-text  class="slds-text-heading_small " value="You have an unsubmitted form." ></lightning-formatted-text></p>
+                                <p><lightning-formatted-text  value="Are you sure you want to discard this form?"></lightning-formatted-text></p>       
+                            </div>
+                        </div>
+                        <!--End Section-->
+                        <!--Footer Section-->
+                        <div class="slds-modal__footer ">
+                            <lightning-button
+                            variant="brand-outline"  
+                            onclick={changeTheForm}
+                            title="Yes"
+                            label="Yes"
+                            class="slds-m-left_x-small"
+                            >
+                            </lightning-button>
+                            <lightning-button
+                            variant="brand"  
+                            onclick={hideFormChangeModal}
+                            title="No"
+                            label="No"
+                            class="slds-m-left_x-small" 
+                            >
+                            </lightning-button>
+                            <!--End Footer Section-->
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </template>
+
+        <template if:false={evaluationPeriod}>
+            <div class="slds-var-m-around_m slds-text-heading_small slds-text-align_center"> 
+                <template if:false={evaluationPeriodWarningNoHHRR}>
+                    <template if:true={evaluationPeriodWarning}>
+                        <lightning-icon icon-name="action:announcement" class="slds-var-m-around_medium" size="small" alternative-text="Warning" title="warningr"></lightning-icon>
+
+                        <p>You no longer have access to the evaluation forms, please come back on:</p>
+                        <p><strong> {nextFireTime} </strong></p>
+                    </template>
+                    <template if:false={evaluationPeriodWarning}>
+                        <div class="slds-text-color_destructive"> 
+                            <lightning-icon icon-name="action:close" class="slds-var-m-around_medium" size="small" alternative-text="Error" title="error"></lightning-icon>
+                            <p>The jobs that activates the evaluation period, are not scheduled. Please go to the <strong>Automation Manager's tab</strong> and schedule an evaluation period.</p>
+                        </div>
+                    </template>
+                 </template>
+
+
+                <template if:true={evaluationPeriodWarningNoHHRR}>
+                    <div class="slds-text-color_destructive"> 
+                        <lightning-icon icon-name="action:close" class="slds-var-m-around_medium" size="small" alternative-text="Error" title="error"></lightning-icon>
+                        <p>The jobs that activates the evaluation period, are not scheduled. Please contact the HHRR department.</p>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+</template>

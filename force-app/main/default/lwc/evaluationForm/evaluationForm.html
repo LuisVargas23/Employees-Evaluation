@@ -1,0 +1,173 @@
+<template>
+    <lightning-card>
+        <template if:false={evaluationTaken}>
+            <template if:true={managerInstructions}>
+                <template if:true={manager}>
+                    <template if:true={fieldsVisibility}>
+                        <div class="slds-box slds-theme_shade slds-var-m-around_medium slds-text-align_left">
+                            <p><lightning-formatted-text  class="slds-text-heading_small slds-text-color_weak " value="Instructions:" ></lightning-formatted-text></p>
+                            <br>
+                            <lightning-formatted-text  
+                                class="slds-var-m-around_m"
+                                value={managerInstructions.Instruction__c}>
+                            </lightning-formatted-text>
+                        </div>
+                    </template>
+                </template>
+            </template>
+            <template if:true={employeeInstructions}>
+                <template if:false={manager}>
+                    <template if:true={fieldsVisibility}>
+                        <div class="slds-box slds-theme_shade slds-var-m-around_medium slds-text-align_left">
+                            <p><lightning-formatted-text  class="slds-text-heading_small slds-text-color_weak " value="Instructions:" ></lightning-formatted-text></p>
+                            <br>
+                            <lightning-formatted-text  
+                                class="slds-var-m-around_m" 
+                                value={employeeInstructions.Instruction__c}
+                            >
+                            </lightning-formatted-text>
+                        </div>
+                    </template>    
+                </template>  
+            </template>  
+        </template>     
+        <template if:true={picklistCategory}>
+            <template if:false={evaluationTaken}>
+                <template if:true={fieldsVisibility}>
+                    <template if:true={questionsByCat}>
+
+                <template for:each={questionsByCat} for:item="category">
+                    <div class="slds-border_top slds-var-m-around_medium" key={category.category}>
+                        <div class="slds-var-m-around_medium slds-grid slds-wrap slds-p-left_small">
+                            <lightning-formatted-text 
+                        class="slds-text-title_caps  slds-col slds-size_12-of-12 " 
+                        value={category.category}>
+                        </lightning-formatted-text>
+                        </div>
+                        <template if:true={category.questionsList}>
+
+                        <template for:each={category.questionsList} for:item="question">
+                            <div class=" slds-var-m-around_medium" key={question.Id}>
+                                <div class="slds-var-m-around_medium slds-grid slds-wrap slds-p-left_small">
+   
+                        <lightning-formatted-rich-text
+                            class="slds-col slds-size_8-of-12 "
+                            value={question.Question_Text__c}>
+                        </lightning-formatted-rich-text>
+                        <div class="slds-var-m-left_small">
+                        <lightning-radio-group
+                            class="slds-col  slds-size_4-of-12"
+                            options={rating}
+                            value={value}
+                            type="button"
+                            data-field="Answer__c">
+                        </lightning-radio-group>
+                        </div>
+                    </div>
+                    </div>
+                    </template>
+                    </template>
+
+                    </div>
+                </template>
+                </template>
+                </template>
+                <template if:true={manager}>
+                    <template if:true={fieldsVisibility}>
+                    <div class="slds-var-m-around_medium slds-size_8-of-12">
+                        <lightning-textarea name="recommendation" label="Recommendation" value={recommendation} onchange={recommendationEventHandler}></lightning-textarea>
+                     </div>
+                    </template>
+                </template>     
+            </template>
+            <template if:true={evaluationTaken}>
+                <div class="slds-text-color_destructive slds-var-m-around_m slds-text-heading_small slds-text-align_center"> 
+                    <lightning-icon icon-name="utility:error" alternative-text="Error" title="error"></lightning-icon>
+                    <p><strong>Sorry, you can send the form only once</strong></p>
+                </div>
+            </template>
+              
+        </template>
+
+        <template if:true={error}>
+            <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                <lightning-icon icon-name="action:reject" alternative-text="Error"></lightning-icon>
+                <div class="slds-p-around_medium">
+                    <div class="slds-var-m-around_medium slds-text-align_center">
+                            <p class="slds-text-heading_small">Error</p>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+         <!--Footer Section-->
+         <div slot="footer" class="slds-align_absolute-center">
+            <lightning-button
+            variant="brand-outline"  
+            onclick={cancelHandler}
+            title="Cancel"
+            label="Cancel"
+            class="slds-m-left_x-small" 
+            >
+            </lightning-button>
+            <lightning-button
+            variant="brand"  
+            onclick={submitFormHandler}
+            title="Submit"
+            label="Submit"
+            disabled={disableSubmit}
+            class="slds-m-left_x-small"
+            >
+            
+            </lightning-button>
+        </div>
+        
+        <!-- Sucess/Failure Modal When Form Submission-->
+        <template if:true={showFormModal}>
+            <div class="slds-box slds-theme_shade">
+                <div class="slds-modal slds-fade-in-open slds-backdrop">
+                    <div class="slds-modal__container">
+                        <!--HEADER Section-->
+                        <div class="slds-modal__header">
+                            <lightning-button-icon
+                                icon-name="utility:close"
+                                alternative-text="Close this window"
+                                size="large"
+                                variant="bare-inverse"
+                                onclick={hideFormSubmissionModal}
+                                class="slds-modal__close"
+                                >
+                            </lightning-button-icon>
+                            <lightning-icon icon-name="action:approval" alternative-text="The form is submitted"></lightning-icon>
+
+                        </div>
+                        <!---Body Section-->
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <div class="slds-var-m-around_medium slds-text-align_center">
+                            
+                                <p><lightning-formatted-text  class="slds-text-heading_small " value="Form successfully submitted" ></lightning-formatted-text></p>
+                                <p><lightning-formatted-text  value="Thank you"></lightning-formatted-text></p>
+                    
+                            </div>
+                        </div>
+                        <!--End Section-->
+                        <!--Footer Section-->
+                        <div class="slds-modal__footer ">
+                            <lightning-button
+                            variant="brand-outline"  
+                            onclick={hideFormSubmissionModal}
+                            title="Close"
+                            label="Close"
+                            class="slds-m-left_x-small" 
+                            >
+                            </lightning-button>
+                        
+                            <!--End Footer Section-->
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </template>
+        <!--End Warning Modal When Delete a Question-->
+    </lightning-card>
+</template>
