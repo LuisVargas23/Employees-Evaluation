@@ -29,17 +29,21 @@
       LIMIT 1
       ];
   }
-
   //Add six months to a cron expression
   public static String addSixMonths(String stringFromUser){
+    system.debug(stringFromUser);
+
     List<String> cronList = stringFromUser.split(' ');
     Date myDate = Date.newInstance(Integer.valueOf(cronList[6]),Integer.valueOf(cronList[4]),Integer.valueOf(cronList[3]));
-    String stringUpgraded = stringFromUser.substring(0,6);
+    system.debug(myDate);
+    String stringUpgraded = cronList[0]+' '+cronList[1]+' '+cronList[2];
+    system.debug(stringUpgraded);
     Date sixMonthLater = myDate.addMonths(6);
     String newDay = String.valueOf(sixMonthLater.Day());
     String newMonth = String.valueOf(sixMonthLater.Month());
     String newYear = String.valueOf(sixMonthLater.Year());
     stringUpgraded = stringUpgraded + ' ' + newDay + ' ' + newMonth + ' ? ' + newYear;
+    system.debug(stringUpgraded);
     return stringUpgraded;
   }
 

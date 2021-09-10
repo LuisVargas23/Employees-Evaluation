@@ -10,41 +10,6 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>All Employees</fullName>
-                <default>false</default>
-                <label>All Employees</label>
-            </value>
-            <value>
-                <fullName>All Employees&apos; Managers</fullName>
-                <default>false</default>
-                <label>All Employees&apos; Managers</label>
-            </value>
-            <value>
-                <fullName>Onboarding</fullName>
-                <default>false</default>
-                <label>Onboarding</label>
-            </value>
-            <value>
-                <fullName>Jr Employees</fullName>
-                <default>false</default>
-                <label>Jr Employees</label>
-            </value>
-            <value>
-                <fullName>Sr Employees</fullName>
-                <default>false</default>
-                <label>Sr Employees</label>
-            </value>
-            <value>
-                <fullName>Sales Employees</fullName>
-                <default>false</default>
-                <label>Sales Employees</label>
-            </value>
-            <value>
-                <fullName>Marketing Employees</fullName>
-                <default>false</default>
-                <label>Marketing Employees</label>
-            </value>
-            <value>
                 <fullName>Support Employees</fullName>
                 <default>false</default>
                 <label>Support Employees</label>

@@ -17,7 +17,7 @@
  * -------------------------------------------------------------------------------------------------
  * 7/29/2021                    Luis Vargas     Initial Creation
  ***************************************************************************************************/
-import { LightningElement, wire, track } from "lwc";
+import { LightningElement, track } from "lwc";
 import getCurrentlyScheduledJobs from "@salesforce/apex/SchedulerServiceController.getCurrentlyScheduledJobs";
 import scheduleJob from "@salesforce/apex/SchedulerServiceController.scheduleJob";
 import deleteScheduledJob from "@salesforce/apex/SchedulerServiceController.deleteScheduledJob";
@@ -50,6 +50,7 @@ export default class EmailSchedulerService extends LightningElement {
       .then(result => {
         if(result){
           this.timeZone = result;
+          console.log('TimeZone: '+ this.timeZone);
         }
         else{
           console.log("we were unable to load the timezone");     
@@ -63,7 +64,6 @@ export default class EmailSchedulerService extends LightningElement {
   scheduleApexJob() {
     if(this.evaluationSemestralCronAsString && this.evaluationSemestralEndCronAsString  && this.evaluationSemestralEndCronAsString && this.evaluationReminderCronAsString){
     this.loading = true;
-
     scheduleJob({
       cronStringSemestral: this.evaluationSemestralCronAsString,
       cronStringSemestralEnd: this.evaluationSemestralEndCronAsString,
@@ -150,7 +150,8 @@ export default class EmailSchedulerService extends LightningElement {
   }
 
   handleTimeChange(event) {
-    if(event.target.value != null && (new Date(event.target.value) > new Date())){
+    console.log(event.target.value);
+    if(event.target.value != null && (new Date(event.target.value) > (new Date()).setDate(new Date().getDate() + 1))){
       
       if(new Date(event.target.value) < (new Date()).setDate(new Date().getDate() + 3)){
         this.dispatchEvent(
@@ -163,9 +164,17 @@ export default class EmailSchedulerService extends LightningElement {
       }
       
       let date = new Date(event.target.value);
+      console.log(date);
+
       let day = date.getDate()
       let month = date.getMonth()+1
       let year = date.getFullYear()
+      console.log(day);
+      console.log(month);
+
+      console.log(year);
+
+
 
       let datePlus7 = new Date(event.target.value);
       datePlus7.setDate(datePlus7.getDate() + 7)
@@ -197,13 +206,17 @@ export default class EmailSchedulerService extends LightningElement {
       let monthMinus1 = dateMinus1.getMonth()+1
       let yearMinus1 = dateMinus1.getFullYear()
     
-      let time = event.target.value.substring(12, 19);
-      let [hour, minute, seconds] = time.split(":");
+      //let time = event.target.value.substring(9, 19);
+      let hour = date.getHours(); 
+      let minute = date.getMinutes(); 
+      let seconds = date.getSeconds(); 
+      //console.log(time);
+      //let [hour, minute, seconds] = time.split(":");
       this.evaluationSemestralCronAsString = `0 ${minute} ${hour} ${day} ${month} ? ${year}`;
       this.evaluationSemestralEndCronAsString = `0 ${minute} ${hour} ${dayPlus7} ${monthPlus7} ? ${yearPlus7}`;
       this.evaluationDailyCronAsString = `0 ${minute} ${hour} ${dayPlus1}-${dayPlus6} ${monthPlus1}-${monthPlus6} ? ${yearPlus1}-${yearPlus6}`;
       this.evaluationReminderCronAsString = `0 ${minute} ${hour} ${dayMinus4}-${dayMinus1} ${monthMinus4}-${monthMinus1} ? ${yearMinus4}-${yearMinus1}`;
-    
+      console.log(this.evaluationSemestralCronAsString);
     }
     else{
       this.evaluationSemestralCronAsString = null;
@@ -231,7 +244,7 @@ export default class EmailSchedulerService extends LightningElement {
           this.stopLoading(500);
         }
         else{
-          console.log("we were unable to load the job");
+          console.log("we were unable to load the jobs");
   
           this.nextFireTime = undefined;
         }
@@ -287,7 +300,7 @@ export default class EmailSchedulerService extends LightningElement {
       .then(result => {
         if(result){
           this.userRole =  result.UserRole.Name;
-          console.log(this.userRole);
+          console.log('Role: '+this.userRole);
           if(this.userRole == 'HHRR' || this.userRole == 'HR'){
             this.visible = true;
           }
@@ -304,6 +317,8 @@ export default class EmailSchedulerService extends LightningElement {
   }
 
   connectedCallback() {
+   // this.timeZone = 'America/New_York';
+    this.getTimeZone();
     this.getUserRoleToValidateAccess();
     this.getScheduledCron();
     this.loading = true;

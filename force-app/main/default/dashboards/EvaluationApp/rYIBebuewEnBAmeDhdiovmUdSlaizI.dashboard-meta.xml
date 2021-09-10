@@ -7,16 +7,9 @@
     <colorPalette>unity</colorPalette>
     <dashboardChartTheme>light</dashboardChartTheme>
     <dashboardColorPalette>unity</dashboardColorPalette>
-    <dashboardFilters>
-        <dashboardFilterOptions>
-            <operator>equals</operator>
-            <values>CEO CEO</values>
-        </dashboardFilterOptions>
-        <name>Employee: Full Name</name>
-    </dashboardFilters>
     <dashboardGridLayout>
         <dashboardGridComponents>
-            <colSpan>11</colSpan>
+            <colSpan>12</colSpan>
             <columnIndex>0</columnIndex>
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
@@ -27,9 +20,6 @@
                     <column>Score__c$Score__c</column>
                 </chartSummary>
                 <componentType>Column</componentType>
-                <dashboardFilterColumns>
-                    <column>Score__c.Forms__r$Employee__c</column>
-                </dashboardFilterColumns>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <drillEnabled>false</drillEnabled>
@@ -55,7 +45,7 @@
             <rowSpan>10</rowSpan>
         </dashboardGridComponents>
         <dashboardGridComponents>
-            <colSpan>11</colSpan>
+            <colSpan>12</colSpan>
             <columnIndex>0</columnIndex>
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
@@ -66,9 +56,6 @@
                     <column>Score__c$Score__c</column>
                 </chartSummary>
                 <componentType>Column</componentType>
-                <dashboardFilterColumns>
-                    <column>Score__c.Forms__r$Employee__c</column>
-                </dashboardFilterColumns>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <drillEnabled>false</drillEnabled>
@@ -94,7 +81,7 @@
             <rowSpan>10</rowSpan>
         </dashboardGridComponents>
         <dashboardGridComponents>
-            <colSpan>11</colSpan>
+            <colSpan>12</colSpan>
             <columnIndex>0</columnIndex>
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
@@ -105,9 +92,6 @@
                     <column>Score__c$Score__c</column>
                 </chartSummary>
                 <componentType>LineGrouped</componentType>
-                <dashboardFilterColumns>
-                    <column>Score__c.Forms__r$Employee__c</column>
-                </dashboardFilterColumns>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <drillEnabled>false</drillEnabled>

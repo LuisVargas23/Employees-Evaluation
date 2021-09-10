@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#25A783</headerColor>
+        <logo>eval_app</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
+    </brand>
+    <description>This app is intended for employee evaluation process. Here HR can create and manage evaluations forms, and managers and employees can submit evaluations.</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Evaluation App</label>
+    <navType>Standard</navType>
+    <tabs>Question_Pool</tabs>
+    <tabs>Form_Configuration</tabs>
+    <tabs>Automation_Manager</tabs>
+    <tabs>Evaluation_Forms</tabs>
+    <tabs>Dashboards</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Evaluation_App_UtilityBar</utilityBar>
+</CustomApplication>

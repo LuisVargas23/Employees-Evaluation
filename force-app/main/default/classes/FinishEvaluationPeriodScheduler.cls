@@ -32,13 +32,15 @@ global with sharing class FinishEvaluationPeriodScheduler implements Schedulable
         //Get the current 'EXECUTING' job
         Id jobId =  context.getTriggerId();
         CronTrigger myCronTrigger = SchedulerService.getCronTrigger(jobId); 
+        system.debug(myCronTrigger);
          /*Autoschedule to run again this class in six months. A TimeStamp is added 
         to the name to avoid a duplicity exception, because of the running Job.*/
         String CronExpression = SchedulerService.addSixMonths(myCronTrigger.CronExpression);
+        system.debug(CronExpression);
+
         String jobName = 'Finish the evaluation period';
         FinishEvaluationPeriodScheduler sh2 = new FinishEvaluationPeriodScheduler();
         String m = String.Valueof(Datetime.now().millisecond());
         System.schedule(jobName+' '+m, CronExpression , sh2);
     }
 }
-

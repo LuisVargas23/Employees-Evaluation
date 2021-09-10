@@ -13,5 +13,3 @@ public with sharing class BeforeDailyNotificationSchedulerTest {
         System.assertEquals(1, ctList.size(),'Scheduler not working');
     }
 }
-
-

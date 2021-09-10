@@ -42,6 +42,7 @@ export default class JobsMonitor extends LightningElement {
       .then(result => {
         if(result){
           this.timeZone = result;
+          console.log('Job Monitor: '+this.timeZone);
         }
         else{
           console.log("we were unable to load the timezone");     
@@ -103,6 +104,7 @@ export default class JobsMonitor extends LightningElement {
 
   //Enable to choose what you fire first, in this case the loading simulation and refresh questions  
   connectedCallback() {
+    this.getTimeZone();
     this.getUserRoleToValidateAccess();
     this.loading = true;
     this.stopLoading(1000);

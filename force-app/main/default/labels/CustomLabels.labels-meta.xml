@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Employee_Form_Instructions</fullName>
+        <categories>Instructions</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Employee Form Instructions</shortDescription>
+        <value>Please select the appropriate answer for each question.
+1 = Strongly Disagree, 10 = Strongly Agree.</value>
+    </labels>
+</CustomLabels>

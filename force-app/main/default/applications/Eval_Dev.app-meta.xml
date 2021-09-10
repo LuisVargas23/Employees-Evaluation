@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Eval_Dev</label>
+    <navType>Standard</navType>
+    <tabs>Question__c</tabs>
+    <tabs>Form__c</tabs>
+    <tabs>Score__c</tabs>
+    <tabs>Question_Pool</tabs>
+    <tabs>Evaluation_Forms</tabs>
+    <tabs>Forms_Group__c</tabs>
+    <tabs>standard-report</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Eval_Dev_UtilityBar</utilityBar>
+</CustomApplication>

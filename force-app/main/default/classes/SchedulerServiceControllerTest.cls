@@ -53,7 +53,6 @@ public with sharing class SchedulerServiceControllerTest {
 
     @isTest
     static void getCurrentlyScheduledJobsTest(){
-        
         DateTime nextTrigger = SchedulerServiceController.getCurrentlyScheduledJobs('Start the evaluation period Test Setup');
         system.debug(nextTrigger);
         

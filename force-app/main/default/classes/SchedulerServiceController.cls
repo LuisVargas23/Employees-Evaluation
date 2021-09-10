@@ -26,11 +26,12 @@ public with sharing class SchedulerServiceController {
     return Datetime.now();
     }
 
-    //Get current Salesforce Platform's timezone
-    @AuraEnabled(cacheable=true)
-    public static String getCurrentTimeZone() {
-    return string.ValueOf(UserInfo.getTimeZone());
-    }
+   //Get current Salesforce Platform's timezone
+   @AuraEnabled(cacheable=true)
+   public static String getCurrentTimeZone() {
+   Organization orgInfo = [SELECT Id, TimeZoneSidKey FROM Organization];
+   return string.ValueOf(orgInfo.TimeZoneSidKey);
+   }
 
     //Get the datetime when the next evaluation period starts
     @AuraEnabled

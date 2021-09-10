@@ -12,4 +12,3 @@ public with sharing class FinishEvaluationPeriodSchedulerTest {
         System.assertEquals(1, ctList.size(),'Scheduler not working');
     }
 }
-

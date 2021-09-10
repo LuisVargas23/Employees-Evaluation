@@ -31,7 +31,8 @@ global with sharing class SendNotificationEmailService implements Database.Batch
 
     global Database.QueryLocator start(Database.BatchableContext BC) {
         // collect the batches of records or objects to be passed to execute
-        return Database.getQueryLocator([SELECT Id, Name, IsActive, UserRole.Name, Email FROM User WHERE IsActive=true AND Email != 'noreply@00d5e000002i6bleas' AND Email != 'autoproc@00d5e000002i6bleas' AND Email != 'automatedclean@00d5e000002i6bleas' AND Email != 'insightssecurity@example.com' AND Email != 'integration@example.com' AND Email='luis.vargas@theksquaregroup.com' WITH SECURITY_ENFORCED]);
+      //  return Database.getQueryLocator([SELECT Id, Name, IsActive, UserRole.Name, Email FROM User WHERE IsActive=true AND Email != 'noreply@00d5e000002i6bleas' AND Email != 'autoproc@00d5e000002i6bleas' AND Email != 'automatedclean@00d5e000002i6bleas' AND Email != 'insightssecurity@example.com' AND Email != 'integration@example.com' AND Email='Carlos.Nunez@theksquaregroup.com' WITH SECURITY_ENFORCED]);
+        return Database.getQueryLocator([SELECT Id, Name, IsActive, UserRole.Name, Email FROM User WHERE IsActive=true AND Email='carlos.nunez@theksquaregroup.com' WITH SECURITY_ENFORCED]);
 
     }
     global void execute(Database.BatchableContext BC, List<User> usrList) {

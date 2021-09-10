@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Min_Question_Score__c</fullName>
+    <externalId>false</externalId>
+    <label>Min Question Score</label>
+    <summarizedField>Form__c.Question_Score__c</summarizedField>
+    <summaryForeignKey>Form__c.Score__c</summaryForeignKey>
+    <summaryOperation>min</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

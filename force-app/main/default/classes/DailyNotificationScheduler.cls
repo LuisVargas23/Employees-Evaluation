@@ -39,4 +39,3 @@ global with sharing class DailyNotificationScheduler implements Schedulable {
       }
     }
 }
-

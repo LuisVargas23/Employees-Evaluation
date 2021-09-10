@@ -27,7 +27,7 @@
                 <field>Question_Text__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Category__c</field>
             </layoutItems>
             <layoutItems>
